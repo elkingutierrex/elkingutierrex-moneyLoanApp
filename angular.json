@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "moneyLoanApp"
+    }
+  },
+  "defaultProject": "moneyLoanApp",
+  "cli": {
+    "analytics": false
+  }
 }
