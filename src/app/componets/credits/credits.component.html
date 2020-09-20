@@ -1,16 +1,45 @@
-<div class="card mb-3" style="max-width: 540px;">
-    <div class="row no-gutters ">
-      <div class="col-md-4">
-        <img src="/assets/images/ico.jpg" class="card-img" alt="...">
-      </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title">Tenemos disponibles: {{ 20000000 | currency:'$' }}</h5>
-          <p class="card-text">Por que confiamos en ti, puedes solicitar tu credito en solo 5 minutos.</p>
-          <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+<div class="card mb-3 text-white bg-info mb-3" >
+  <div class="card-header" style="text-align: center;">
+    <h5><b>Solicita tu credito, en solo 5 minutos!!</b> Tenemos disponibles hasta: {{ 20000000 | currency:'$' }}</h5>
+  </div>
+    <div class="row center my-2">
+      <div class="col-md-12 row">
+        <div class="col-md-6" style="text-align: center;">
+              <img src="/assets/images/ico.jpg" class="card-img" alt="..." style="max-width: 120px;">
+              <p class="card-text">Por que confiamos en ti, desembolso inmediato!</p>
+
         </div>
+     
+        <div class="col-md-6" style="text-align: center;">
+          <div class="btn-group btn-sm" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-success btn-sm">Solicitar prestamo</button>
+            <button type="button" class="btn btn-success btn-sm">Ver historial</button>
+            <button type="button" class="btn btn-success btn-sm">Realizar pago</button>
+          </div>
+
+          <div class="form-group">
+            <label>Cédula</label>
+            <div class="input-group ">
+            <input type="text" 
+                    class="form-control" 
+                    placeholder="Cédula"
+                    [(ngModel)]="objConsult.documentId">
+            <div class="input-group-append">
+                <button class="btn btn-secondary" 
+                        type="button" 
+                        id="button-addon2"
+                        (click)="filterUser(objConsult.documentId)">Validar</button>
+              </div>
+
+            </div>
+        </div>
+        </div>
+
       </div>
+ 
     </div>
   </div>
 
-  <router-outlet></router-outlet>
+  <app-loan-apply [objCredit] = "objCredit"></app-loan-apply>
+<!-- 
+  <router-outlet></router-outlet> -->

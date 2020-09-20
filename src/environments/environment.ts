@@ -4,6 +4,17 @@
 
 export const environment = {
   production: false
+
+  ,firebaseConfig : {
+    apiKey: "AIzaSyANGxH1Pk52vjjurqKu2u3ESbHagFWGrW4",
+    authDomain: "moneyloanapp.firebaseapp.com",
+    databaseURL: "https://moneyloanapp.firebaseio.com",
+    projectId: "moneyloanapp",
+    storageBucket: "moneyloanapp.appspot.com",
+    messagingSenderId: "1094359689264",
+    appId: "1:1094359689264:web:b6828bc5943d6268f565f5",
+    measurementId: "G-PFBM139C76"
+  }
 };
 
 /*

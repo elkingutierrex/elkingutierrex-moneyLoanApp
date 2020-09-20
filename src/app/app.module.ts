@@ -9,6 +9,16 @@ import { CreditsComponent } from './componets/credits/credits.component';
 import { LoanListComponent } from './componets/credits/loan-list/loan-list.component';
 import { LoanApplyComponent } from './componets/credits/loan-apply/loan-apply.component';
 
+import { environment } from '../environments/environment';
+
+//firebase 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { FormsModule } from '@angular/forms';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { CreditService } from './services/credit.service';
+
+
 
 @NgModule({
   declarations: [
@@ -20,9 +30,12 @@ import { LoanApplyComponent } from './componets/credits/loan-apply/loan-apply.co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    FormsModule,
+    AppRoutingModule,
+    AngularFireModule.initializeApp( environment.firebaseConfig ),
+    AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [AngularFirestore, CreditService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
