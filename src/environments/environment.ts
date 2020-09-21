@@ -15,6 +15,12 @@ export const environment = {
     appId: "1:1094359689264:web:b6828bc5943d6268f565f5",
     measurementId: "G-PFBM139C76"
   }
+
+  ,objCapital:{
+    totalCapital : 200000000
+    ,totalLoan:0.
+    ,totalPayment:0
+  }
 };
 
 /*

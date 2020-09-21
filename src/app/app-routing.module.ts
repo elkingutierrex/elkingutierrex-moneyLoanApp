@@ -8,10 +8,12 @@ import { LoanListComponent } from './componets/credits/loan-list/loan-list.compo
 const routes: Routes = [
   {path: 'home', component: CreditsComponent,
     children:
-    [ {path: 'solicita-credito', component: LoanApplyComponent},
-      {path: 'resumen-creditos', component: LoanListComponent}
+    [ 
+      {path: 'resumen-usuarios', component: LoanListComponent},
+      
     ]  
   },
+  {path: 'resumen-Usuarios', component: LoanListComponent},
   {path: '**', redirectTo: 'home'}
   
 ];

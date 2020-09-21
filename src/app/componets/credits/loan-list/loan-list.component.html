@@ -5,7 +5,8 @@
             <th scope="col">Cedula</th>
             <th scope="col">Nombre</th>
             <th scope="col">E-mail</th>
-            <th scope="col">Prestamo</th>
+            <th scope="col">Resumen financiero</th>
+            
           </tr>
         </thead>
         <tbody>
@@ -14,7 +15,13 @@
             <td> {{ item.documentId}} </td>
             <td> {{ item.name}} </td>
             <td> {{ item.email}} </td>
-            <td> {{ item.email}} </td>
+            <td> 
+              Prestado :      {{item.loansTotal}}
+              Pagado:     {{item.paymentTotal}}
+              Deuda:      {{item.loansTotal - item.paymentTotal}}
+        
+              
+            </td>
 
           </tr>
           

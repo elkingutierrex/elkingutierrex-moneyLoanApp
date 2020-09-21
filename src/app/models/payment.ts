@@ -1,5 +1,4 @@
 export class Payment {
-    $key:string;
     value: number;
-    dateInsert: Date;   
+    dateInsert: number;   
 }

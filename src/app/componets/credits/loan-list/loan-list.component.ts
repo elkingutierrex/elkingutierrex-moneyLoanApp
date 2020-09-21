@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CreditService } from '../../../services/credit.service';
 
 @Component({
@@ -9,23 +9,13 @@ import { CreditService } from '../../../services/credit.service';
 })
 export class LoanListComponent implements OnInit {
 
-  loanList :any = [];
+
+  @Input() loanList;
 
   constructor( public _credit : CreditService) { }
 
   ngOnInit(): void {
-    this._credit.getCredits()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.loanList = [];
-        item.forEach(element => {
-          let x = element.payload.toJSON();
-          x["$key"] = element.key;
-          this.loanList.push(x);
-        });
-      });
+    
   }
-
-
 
 }

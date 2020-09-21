@@ -1,89 +1,117 @@
 <div class="container"> 
 
-
-    <h2>Solicita tu credito, en solo 5 minutos</h2>
-    <div class="form-row">
-
-        <div class="form-group col-md-4">
-            <label>Cédula</label>
-            <div class="input-group ">
-            <input type="text" 
-                    class="form-control" 
-                    placeholder="Cédula"
-                    [(ngModel)]="objCredit.documentId">
-            <div class="input-group-append">
-                <button class="btn btn-secondary" 
-                        type="button" 
-                        id="button-addon2"
-                        (click)="filterUser(objCredit.documentId)">Validar</button>
-              </div>
-
-            </div>
-        </div>
-
-        <div class="form-group col-md-4">
-            <label >Nombre</label>
-            <input type="text" 
-                    class="form-control" 
-                  
-                    placeholder="Nombre"
-                    [(ngModel)]="objCredit.name">
-        </div>
-
-        <div class="form-group col-md-4">
-          <label >Email</label>
-          <input type="email" 
-                  class="form-control" 
+        <div class="row">
+                <div class="col-md-4" style="text-align: center;">
+                        <h2>Solicita tu credito <br>
+                                en solo 5 minutos
+                        </h2>
+                        <h4>Estado del credito <br>
+                                <span [ngClass]="{'badge badge-error !important': !objCredit.swApproved
+                                                ,'badge badge-success !important': objCredit.swApproved}">
+                                
+                                {{ !objCredit.$key? 'pendiente' : objCredit.swApproved? 'Aprobado' : 'Rechazado' }}
+                        
+                                </span>
+                        </h4>
+                </div>    
                  
-                  [(ngModel)]="objCredit.email">
+                    <div class="col-md-8 form-row">
+                
+                        <!-- <div class="form-group col-md-4">
+                            <label>Cédula</label>
+                            <div class="input-group ">
+                            <input type="text" 
+                                    class="form-control" 
+                                    placeholder="Cédula"
+                                    [(ngModel)]="objCredit.documentId">
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" 
+                                        type="button" 
+                                        id="button-addon2"
+                                        (click)="filterUser(objCredit.documentId)">Validar</button>
+                              </div>
+                
+                            </div>
+                        </div> -->
+                
+                        <div class="form-group col-md-12">
+                            <label >Nombre</label>
+                            <input type="text" 
+                                    class="form-control" 
+                                    [disabled] = "objCredit.$key"
+                                    placeholder="Nombre"
+                                    [(ngModel)]="objCredit.name">
+                        </div>
+                
+                        <div class="form-group col-md-12">
+                          <label >Email</label>
+                          <input type="email" 
+                                  class="form-control" 
+                                  [disabled] = "objCredit.$key"
+                                  [(ngModel)]="objCredit.email">
+                        </div>
+                
+                        <div class="form-group col-md-12"
+                                *ngIf="type == 'loan'">
+                          <label >Valor Solicitado</label>
+                          <input type="number" 
+                                  class="form-control" 
+                                  [(ngModel)]="objCredit.valueLastLoanRequested">
+                        </div>
+
+                        <div class="form-group col-md-12"
+                                *ngIf="type == 'payment'">
+                                <label >Valor abono/pago</label>
+                                <input type="number" 
+                                        class="form-control" 
+                                        [(ngModel)]="objCredit.valueLastPaymentMade">
+                              </div>
+                
+                        <!-- <div class="form-group col-md-6">
+                            <label >Estado de credito</label>
+                            <input type="text" 
+                                    class="form-control" 
+                                  
+                                    [(ngModel)]="objCredit.swApproved">
+                        </div> -->
+                
+                        <!-- <div class="form-group col-md-4">
+                            <label >Pago de credito</label>
+                            <input  type="number" 
+                                    class="form-control"
+                                    [(ngModel)]="objCredit.loans.payments.value"
+                                    >
+                        </div> -->
+                        <div class="col-md-12" style="text-align: center; "
+                                 *ngIf="type == 'loan'">
+                                <button type="submit" 
+                                        class="mx-1 btn btn-success"
+                                        (click)="insertLoan()">
+                                        Solicitar prestamo
+                                </button>
+
+                        </div>
+
+                        <div class="col-md-12" style="text-align: center; "
+                                *ngIf="type == 'payment'">
+                                <button type="submit" 
+                                        class="mx-1 btn btn-warning"
+                                        (click)="insertPayment()">
+                                        Abonar / Pagar prestamo
+                                </button>
+                      </div>
+                      
         </div>
 
-        <div class="form-group col-md-4">
-          <label >Valor Solicitado</label>
-          <input type="number" 
-                  class="form-control" 
-                  [(ngModel)]="objCredit.valueLastLoanRequested">
-        </div>
 
-        <div class="form-group col-md-4">
-            <label >Estado de credito</label>
-            <input type="text" 
-                    class="form-control" 
-                  
-                    [(ngModel)]="objCredit.swApproved">
-        </div>
-
-        <!-- <div class="form-group col-md-4">
-            <label >Pago de credito</label>
-            <input  type="number" 
-                    class="form-control"
-                    [(ngModel)]="objCredit.loans.payments.value"
-                    >
-        </div> -->
-
-      </div>
-
-      <pre>
-        {{ objCredit | json }}
-      </pre>
-
-      <div style="text-align: center;">
-        <button type="submit" 
-                class="mx-1 btn btn-primary"
-                (click)="insertUser()">
-                Ver historial
-        </button>
-        <button type="submit" 
-                class="mx-1 btn btn-success"
-                (click)="insertUser()">
-                Solicitar prestamo
-        </button>
-        <button type="submit" 
-                class="mx-1 btn btn-success"
-                (click)="insertUser()">
-                Realizar pago
-        </button> 
+        
+       
+     
+        
       </div>
       
 </div>
 
+<pre>
+{{ objCredit | json }}
+</pre>
