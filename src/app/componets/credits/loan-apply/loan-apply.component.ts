@@ -39,11 +39,18 @@ export class LoanApplyComponent implements OnInit {
     
   }
 
+  validateEmail(email) 
+  {
+      let re = /\S+@\S+\.\S+/;
+      return re.test(email);
+  }
+
+
   validateForm( obj, type ){
 
     let msgError = ''
 
-    if( !obj.swApproved){
+    if( obj.$key && !obj.swApproved){
       msgError =  `Tus creditos han sido <b>rechazados</b>, contacta el administrador`
     } // caso especial para los pagos
     else if ( type == 'payment' ){
@@ -59,7 +66,9 @@ export class LoanApplyComponent implements OnInit {
       msgError =  `Debe digitar el nombre`
     }else if( !obj.email){
       msgError =  `Debe digitar el email`
-    } 
+    } else if (!this.validateEmail(obj.email) ){
+      msgError =  `La dirección de email es incorrecta.`
+     } 
     
     if(!msgError){
       // Validar maximos y minimos

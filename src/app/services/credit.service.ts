@@ -66,6 +66,10 @@ export class CreditService {
   insertCredit( user ){
     let credito =     this.newUser( user )
     this.usertList.push({... credito})
+    if( credito.swApproved ){
+      this.transaccionSuccess( )
+    }
+   
 
   }
 
@@ -88,11 +92,7 @@ export class CreditService {
       swApproved: credit.swApproved,
       dateInsert: new Date().getTime()
     }
-
-    let newLoan = []
-  
-
-
+    let newLoan = [] 
     // credit.loans.forEach( item => {
     //   console.log(item)
     // })
@@ -101,9 +101,6 @@ export class CreditService {
     // }
     newLoan = this.convertObjetInArray(credit.loans);
     newLoan.push(loan)
-    
-    
-
 
     this.usertList.update( credit.$key, {
       documentId:credit.documentId,
@@ -111,6 +108,7 @@ export class CreditService {
       email: credit.email,
       loans: newLoan
     })
+    this.transaccionSuccess()
   }
 
   updateCreditPayment( credit: User){
@@ -134,6 +132,7 @@ export class CreditService {
       payments: newPayment     
       
     })
+    this.transaccionSuccess()
   }  
 
   convertObjetInArray( obj  ){
@@ -155,6 +154,16 @@ export class CreditService {
     // } 
 
   
+  }
+
+  transaccionSuccess(){
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Transacción realizada con exito',
+        showConfirmButton: false,
+        timer: 1500
+      })
   }
 
 }
