@@ -1,25 +1,35 @@
 <div class="container">
+  <h5>Resumen todos los usuiarios</h5>
     <table class="table table-striped">
         <thead>
           <tr>
+            <th scope="col">Estado del credito</th>
             <th scope="col">Cedula</th>
             <th scope="col">Nombre</th>
             <th scope="col">E-mail</th>
+            <th scope="col">Fecha de registro</th>
             <th scope="col">Resumen financiero</th>
             
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of loanList"> 
-           
+
+            <td>      
+              <span [ngClass]="{'badge badge-danger !important': !item.swApproved && item.$key
+                                ,'badge badge-success !important': item.swApproved}">
+                        {{ !item.$key? 'pendiente' : item.swApproved? 'Aprobado' : 'Rechazado' }}
+
+              </span>
+            </td>
             <td> {{ item.documentId}} </td>
             <td> {{ item.name}} </td>
             <td> {{ item.email}} </td>
+            <td> {{ item.dateInsert | date:'yyyy/MM/dd hh:mm'}} </td>
             <td> 
-              Prestado :      {{item.loansTotal}}
-              Pagado:     {{item.paymentTotal}}
-              Deuda:      {{item.loansTotal - item.paymentTotal}}
-        
+              <span class="badge badge-success">Prestado: ${{item.loansTotal | number}}</span>
+              <span class="badge badge-warning">Pagado:     {{item.paymentTotal | number}}</span>
+              <span class="badge badge-danger">Deuda:      {{item.loansTotal - item.paymentTotal}}</span>
               
             </td>
 
@@ -28,6 +38,6 @@
         </tbody>
       </table>
 
-      {{ loanList | json  }}
+     
       
 </div>

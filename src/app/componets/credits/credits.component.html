@@ -1,7 +1,7 @@
-<div class="card mb-3 text-white bg-info mb-3" >
+<div class="card mb-5 text-white bg-info mb-3" >
   <div class="card-header" style="text-align: center;">
     <h5><b>Solicita tu credito, en solo 5 minutos!!</b> Tenemos disponibles hasta: {{ CAPITAL.total | currency:'$' }}</h5>
-    <pre> {{ CAPITAL | json}} </pre>
+    <!-- <pre> {{ CAPITAL | json}} </pre> -->
   </div>
     <div class="row center my-2">
       <div class="col-md-12 row">
@@ -27,18 +27,22 @@
                     (click)="changeType('history')">Todos los usuarios</button>
           </div>
 
-          <div class="form-group">
+          <div class="form-group"
+             *ngIf="objControl.type != 'history'">
             <label>Cédula</label>
             <div class="input-group ">
             <input type="text" 
                     class="form-control" 
                     placeholder="Cédula"
-                    [(ngModel)]="objConsult.documentId">
+                    [(ngModel)]="objConsult.documentId"
+                    [disabled]="objControl.view">
             <div class="input-group-append">
                 <button class="btn btn-secondary" 
                         type="button" 
                         id="button-addon2"
-                        (click)="filterUser(objConsult.documentId)">Validar</button>
+                        (click)="validateView()">
+                      {{ objControl.view? 'Limpiar' : 'Buscar' }}
+                      </button>
               </div>
 
             </div>
@@ -56,13 +60,23 @@
 <router-outlet></router-outlet>
 
 <app-loan-apply 
-  *ngIf="objControl.type == 'loan' || objControl.type == 'payment'"
+  *ngIf="objControl.type == 'loan' || objControl.type == 'payment' && objControl.view"
   [objCredit] = "objCredit"
   [type]="objControl.type"
   >
 </app-loan-apply>
 
+<app-loan-list-user
+  *ngIf="objControl.type == 'userHistory' && objControl.view"
+  [objCredit] = "objCredit">
+</app-loan-list-user>
+
 <app-loan-list 
     [loanList]= "loanList"
-    *ngIf="objControl.type == 'history'"
-  ></app-loan-list>
+    *ngIf="objControl.type == 'history'">
+</app-loan-list>
+
+<!-- 
+<pre>
+  {{ objCredit | json }}
+</pre> -->

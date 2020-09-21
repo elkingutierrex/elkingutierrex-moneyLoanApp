@@ -17,6 +17,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { FormsModule } from '@angular/forms';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { CreditService } from './services/credit.service';
+import { LoanListUserComponent } from './componets/credits/loan-list-user/loan-list-user.component';
+
 
 
 
@@ -26,7 +28,8 @@ import { CreditService } from './services/credit.service';
     NavbarComponent,
     CreditsComponent,
     LoanListComponent,
-    LoanApplyComponent
+    LoanApplyComponent,
+    LoanListUserComponent
   ],
   imports: [
     BrowserModule,

@@ -22,7 +22,8 @@ export class CreditsComponent implements OnInit {
   }
 
   objControl={
-    type:'payment' 
+    type:'history'
+    ,view:false 
   /* 
   loan
   payment
@@ -74,6 +75,7 @@ export class CreditsComponent implements OnInit {
   filterUser( id ){
 
     this.resetObjet(id);
+    this.objControl.view = true;
   
 
     let loanList;
@@ -96,9 +98,24 @@ export class CreditsComponent implements OnInit {
         }
       }
 
+      this.objCredit.valueLastLoanRequested = 0;
+      this.objCredit.valueLastPaymentMade = 0;
+
+      this.getDetailMvByUser(this.objCredit)
       console.log(this.objCredit)
    
     });
+  }
+
+  validateView(){
+    this.objControl.view = !this.objControl.view;
+
+    if(this.objControl.view){
+      this.filterUser(this.objConsult.documentId)
+    }else{
+      this.objConsult.documentId = null;
+      this.resetObjet(null);
+    }
   }
 
   totalLoansUser(){
@@ -126,6 +143,30 @@ export class CreditsComponent implements OnInit {
     this.CAPITAL.payments = this.loanList.reduce((acum, result) => {return (acum + result.paymentTotal ) },0);
     this.CAPITAL.total    = this.CAPITAL.total  - ( this.CAPITAL.loans - this.CAPITAL.payments)
   }
+
+  getDetailMvByUser( item ){
+    let arrayLoans = this._credit.convertObjetInArray(item.loans);
+    let arrayPayments =  this._credit.convertObjetInArray(item.payments);
+    item.arrayLoans = arrayLoans;
+    item.arrayPayments= arrayPayments;
+    if( arrayLoans != undefined  && arrayLoans.length ){
+      item.loansTotal = arrayLoans.reduce((acum, result) => {return (acum + result.value) },0);
+    }else{
+      item.loansTotal = 0
+    }
+    
+    if( arrayPayments != undefined  && arrayPayments.length ){
+      item.paymentTotal = arrayPayments.reduce((acum, result) => { return (acum + result.value)},0 );
+    }else{
+      item.paymentTotal = 0
+    }
+    
+    item.debtTotal = (item.loansTotal - item.paymentTotal)
+
+  }
+
+
+  
 
   changeType( type:string ){
     this.objControl.type = type;

@@ -6,7 +6,7 @@
                                 en solo 5 minutos
                         </h2>
                         <h4>Estado del credito <br>
-                                <span [ngClass]="{'badge badge-error !important': !objCredit.swApproved
+                                <span [ngClass]="{'badge badge-danger !important': !objCredit.swApproved && objCredit.$key
                                                 ,'badge badge-success !important': objCredit.swApproved}">
                                 
                                 {{ !objCredit.$key? 'pendiente' : objCredit.swApproved? 'Aprobado' : 'Rechazado' }}
@@ -112,6 +112,4 @@
       
 </div>
 
-<pre>
-{{ objCredit | json }}
-</pre>
+

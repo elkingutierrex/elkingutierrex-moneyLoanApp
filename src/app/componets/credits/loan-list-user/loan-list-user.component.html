@@ -1,0 +1,69 @@
+<div class="container row" >
+    <div class="col-12 row">
+        <div class="col-md-4">
+            <h5>Cedula: {{ objCredit.documentId }}  </h5>
+        </div>
+        <div class="col-md-4">
+            <h5>Nombre: {{ objCredit.name }}  </h5>
+        </div>
+        <div class="col-md-4">
+            <h5>Fecha registro: {{ objCredit.documentId }}  </h5>
+        </div>
+        <div class="col-md-4">
+            <h5>Valor prestado: {{ objCredit.loansTotal }}  </h5>
+        </div>
+        <div class="col-md-4">
+            <h5>Valor pagado: {{ objCredit.paymentTotal }}  </h5>
+        </div>
+        <div class="col-md-4">
+            <h5>Deuda: {{ objCredit.debtTotal }}  </h5>
+        </div>
+
+    </div>
+  <div class="card col-md-6">
+    <div class="card-body">
+        <h5> Prestamos realizados </h5>
+        <table class="table table-sm" *ngIf="objCredit.arrayLoans">
+            <thead>
+              <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of objCredit.arrayLoans"> 
+                <td> {{ item.dateInsert  | date:'yyyy/MM/dd hh:mm'}} </td>
+                <td> {{item.value}} </td>
+                <td> <span [ngClass]="{'badge badge-danger !important': !item.swApproved 
+                    ,'badge badge-success !important': item.swApproved}">
+                    {{  item.swApproved? 'Aprobado' : 'Rechazado' }}
+
+                  </span> 
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+  <div class="card col-md-6">
+    <div class="card-body">
+        <h5> Pagos realizados </h5>
+        <table class="table table-sm" *ngIf="objCredit.arrayPayments">
+            <thead>
+              <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Valor</th>               
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of objCredit.arrayPayments"> 
+                    <td> {{ item.dateInsert  | date:'yyyy/MM/dd hh:mm'}} </td>
+                    <td> {{item.value}} </td>
+                  
+                  </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+</div>

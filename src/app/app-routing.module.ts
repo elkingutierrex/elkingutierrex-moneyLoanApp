@@ -7,13 +7,13 @@ import { LoanListComponent } from './componets/credits/loan-list/loan-list.compo
 
 const routes: Routes = [
   {path: 'home', component: CreditsComponent,
-    children:
-    [ 
-      {path: 'resumen-usuarios', component: LoanListComponent},
+    // children:
+    // [ 
+    //   {path: 'resumen-usuarios', component: LoanListComponent},
       
-    ]  
+    // ]  
   },
-  {path: 'resumen-Usuarios', component: LoanListComponent},
+  // {path: 'resumen-Usuarios', component: LoanListComponent},
   {path: '**', redirectTo: 'home'}
   
 ];

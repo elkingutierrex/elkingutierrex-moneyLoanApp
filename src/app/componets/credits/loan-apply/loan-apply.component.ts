@@ -42,27 +42,36 @@ export class LoanApplyComponent implements OnInit {
   validateForm( obj, type ){
 
     let msgError = ''
-    
-    
-    if( !obj.documentId){
+
+    if( !obj.swApproved){
+      msgError =  `Tus creditos han sido <b>rechazados</b>, contacta el administrador`
+    } // caso especial para los pagos
+    else if ( type == 'payment' ){
+      if(!obj.valueLastPaymentMade ){
+        msgError = `Debe ingeresar un valor valido para el abono o pago`
+      }else if( obj.valueLastPaymentMade > obj.debtTotal){
+        msgError = `<b>Tu deuda total es de  ${ obj.debtTotal},</b> y quieres pagar  ${ obj.valueLastPaymentMade}`
+      }
+    } else if( !obj.documentId){
       msgError = `Debe digitar el número de cédula`
     }
     else if( !obj.name){
       msgError =  `Debe digitar el nombre`
     }else if( !obj.email){
       msgError =  `Debe digitar el email`
+    } 
+    
+    if(!msgError){
+      // Validar maximos y minimos
+      if ( type == 'loan' ){
+        if(obj.valueLastLoanRequested > this.objControl.maxValue || obj.valueLastLoanRequested < this.objControl.minValue ){
+          msgError = `El valor del prestamo debe ser de mínimo ${ this.objControl.minValue },máximo ${ this.objControl.maxValue } `
+        }else if( obj.debtTotal > 0 ){
+          msgError = `Debes ponerte al dia con tus créditos tu deuda suma; $ ${ obj.debtTotal }. `
+        }
+      } 
     }
 
-    // Validar maximos y minimos
-    if ( type == 'loan' ){
-      if(obj.valueLastLoanRequested > this.objControl.maxValue || obj.valueLastLoanRequested < this.objControl.minValue ){
-        msgError = `El valor del prestamo debe ser de mínimo ${ this.objControl.minValue },máximo ${ this.objControl.maxValue } `
-      }
-    }else if ( type == 'payment' ){
-      if(obj.valueLastLoanRequested ){
-        msgError = `Debe ingeresar un valor valido para el abono o pago`
-      }
-    }
 
     if(msgError){
       Swal.fire(
